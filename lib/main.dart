@@ -1,8 +1,16 @@
 import "package:flutter/material.dart";
-import "package:state_demo_1/UpdateUser.dart";
-import "package:state_demo_1/Users.dart";
+import "package:provider/provider.dart";
+import "package:state_demo_1/providers/user_provider.dart";
+import "package:state_demo_1/users.dart";
 
-
-void main(){
-  runApp(MaterialApp( debugShowCheckedModeBanner: false, home: Users(),),);
+void main() {
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => UserProvider(),
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Users(),
+      ),
+    ),
+  );
 }
