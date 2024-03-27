@@ -82,7 +82,6 @@ class _NewUserState extends State<NewUser> {
         if (enteredPhone.isNotEmpty) {
           if (enteredAddress.isNotEmpty) {
             isAlertMessageRequired = false;
-            
           } else {
             alertMessage = "Please enter Address";
           }
@@ -139,7 +138,6 @@ class _NewUserState extends State<NewUser> {
 
     Navigator.pop(context);
   }
-
 
   @override
   Widget build(BuildContext context) {

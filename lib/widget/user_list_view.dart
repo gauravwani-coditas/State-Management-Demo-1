@@ -24,7 +24,7 @@ class UsersListView extends StatelessWidget {
           background: Container(
             color: Colors.red,
             alignment: Alignment.centerLeft,
-            padding:const EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: const Icon(
               Icons.delete,
               color: Colors.white,

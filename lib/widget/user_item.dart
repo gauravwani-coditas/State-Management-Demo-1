@@ -4,7 +4,8 @@ import 'package:state_demo_1/models/User.dart';
 import 'package:state_demo_1/widget/user_list_view.dart';
 
 class UserItem extends StatelessWidget {
-  const UserItem({required this.currentUser,required this.onUpdateUserScreen, super.key});
+  const UserItem(
+      {required this.currentUser, required this.onUpdateUserScreen, super.key});
 
   final User currentUser;
   final void Function(User user) onUpdateUserScreen;

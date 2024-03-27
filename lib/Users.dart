@@ -15,9 +15,21 @@ class Users extends StatefulWidget {
 
 class _UsersState extends State<Users> {
   final List<User> _usersList = [
-    User(userName: "Gaurav Wani", userEmail: "gaurav@gmail.com", userPhoneNo: "1234567890", userAddress: "Jalgaon"),
-    User(userName: "Vilas Sonje", userEmail: "vilas@gmail.com", userPhoneNo: "2134567890", userAddress: "Nashik"),
-    User(userName: "Ritik Mandal", userEmail: "ritik@gmail.com", userPhoneNo: "9876543210", userAddress: "Bhusawal"),
+    User(
+        userName: "Gaurav Wani",
+        userEmail: "gaurav@gmail.com",
+        userPhoneNo: "1234567890",
+        userAddress: "Jalgaon"),
+    User(
+        userName: "Vilas Sonje",
+        userEmail: "vilas@gmail.com",
+        userPhoneNo: "2134567890",
+        userAddress: "Nashik"),
+    User(
+        userName: "Ritik Mandal",
+        userEmail: "ritik@gmail.com",
+        userPhoneNo: "9876543210",
+        userAddress: "Bhusawal"),
   ];
 
   void _onUpdateUser(
@@ -34,7 +46,8 @@ class _UsersState extends State<Users> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => UpdateUser(updateUserData: _onUpdateUser, user: user)));
+            builder: (context) =>
+                UpdateUser(updateUserData: _onUpdateUser, user: user)));
   }
 
   void _onAddUserData(User user) {
@@ -44,8 +57,10 @@ class _UsersState extends State<Users> {
   }
 
   void _onAddUserDataScreen() {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => NewUser(onAddUserData: _onAddUserData)));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => NewUser(onAddUserData: _onAddUserData)));
   }
 
   void _onRemoveUser(int index) {
@@ -56,17 +71,6 @@ class _UsersState extends State<Users> {
 
   @override
   Widget build(BuildContext context) {
-    Widget mainContent = Center(
-        child: Text(
-      "Please add some users ",
-      style: GoogleFonts.lato(),
-    ));
-
-    if (_usersList.isNotEmpty) {
-      mainContent =
-          UsersListView(userList: _usersList, onUpdateUserScreen: _onUpdateUserScreen, onRemoveUser: _onRemoveUser);
-    }
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -83,7 +87,16 @@ class _UsersState extends State<Users> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: mainContent,
+        child: _usersList.isEmpty
+            ? Center(
+                child: Text(
+                "Please add some users ",
+                style: GoogleFonts.lato(),
+              ))
+            : UsersListView(
+                userList: _usersList,
+                onUpdateUserScreen: _onUpdateUserScreen,
+                onRemoveUser: _onRemoveUser),
       ),
     );
   }
