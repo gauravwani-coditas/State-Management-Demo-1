@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:state_demo_1/models/User.dart';
 
 class UpdateUser extends StatefulWidget {
-  const UpdateUser(this.updateUserData,this.user, {super.key});
+  //const UpdateUser(this.updateUserData, this.user, {super.key});
+  const UpdateUser(
+      {required this.updateUserData, required this.user, super.key});
 
-  final void Function(String name,String email,String phone,String address,User currentUser) updateUserData;
+  final void Function(String name, String email, String phone, String address,
+      User currentUser) updateUserData;
   final User user;
 
   @override
@@ -14,7 +17,6 @@ class UpdateUser extends StatefulWidget {
 }
 
 class _UpdateUserState extends State<UpdateUser> {
-  
   late TextEditingController _textNameController;
   late TextEditingController _textEmailController;
   late TextEditingController _textPhoneController;
@@ -41,9 +43,9 @@ class _UpdateUserState extends State<UpdateUser> {
   }
 
   void _onSubmitUpdateUserData() {
-    
-      widget.updateUserData(_textNameController.text,_textEmailController.text,_textPhoneController.text,_textAddressController.text,widget.user);
-      Navigator.pop(context);
+    widget.updateUserData(_textNameController.text, _textEmailController.text,
+        _textPhoneController.text, _textAddressController.text, widget.user);
+    Navigator.pop(context);
   }
 
   @override
@@ -60,7 +62,7 @@ class _UpdateUserState extends State<UpdateUser> {
               controller: _textNameController,
               maxLength: 50,
               keyboardType: TextInputType.text,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 label: Text("Name"),
               ),
             ),
@@ -97,7 +99,10 @@ class _UpdateUserState extends State<UpdateUser> {
                       },
                       child: const Text("Cancel")),
                   ElevatedButton(
-                      onPressed: (){_onSubmitUpdateUserData();}, child: const Text("Save Response")),
+                      onPressed: () {
+                        _onSubmitUpdateUserData();
+                      },
+                      child: const Text("Save Response")),
                 ],
               ),
             )

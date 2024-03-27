@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:state_demo_1/NewUser.dart';
-import 'package:state_demo_1/UpdateUser.dart';
-import 'package:state_demo_1/Users.dart';
-import 'package:state_demo_1/widget/UsersListView.dart';
+import 'package:state_demo_1/new_user.dart';
+import 'package:state_demo_1/update_user.dart';
+import 'package:state_demo_1/users.dart';
+import 'package:state_demo_1/widget/user_list_view.dart';
 import 'package:state_demo_1/models/User.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -14,9 +14,11 @@ class Users extends StatefulWidget {
 }
 
 class _UsersState extends State<Users> {
-
-
-  final List<User> _usersList = [];
+  final List<User> _usersList = [
+    User(userName: "Gaurav Wani", userEmail: "gaurav@gmail.com", userPhoneNo: "1234567890", userAddress: "Jalgaon"),
+    User(userName: "Vilas Sonje", userEmail: "vilas@gmail.com", userPhoneNo: "2134567890", userAddress: "Nashik"),
+    User(userName: "Ritik Mandal", userEmail: "ritik@gmail.com", userPhoneNo: "9876543210", userAddress: "Bhusawal"),
+  ];
 
   void _onUpdateUser(
       String name, String email, String phone, String address, User user) {
@@ -32,7 +34,7 @@ class _UsersState extends State<Users> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => UpdateUser(_onUpdateUser, user)));
+            builder: (context) => UpdateUser(updateUserData: _onUpdateUser, user: user)));
   }
 
   void _onAddUserData(User user) {
@@ -43,29 +45,34 @@ class _UsersState extends State<Users> {
 
   void _onAddUserDataScreen() {
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => NewUser(_onAddUserData)));
+        MaterialPageRoute(builder: (context) => NewUser(onAddUserData: _onAddUserData)));
   }
 
-  void _onRemoveUser(User user) {
-    int currentUserIndex = _usersList.indexOf(user);
+  void _onRemoveUser(int index) {
     setState(() {
-      print(_usersList.length);
-      _usersList.remove(_usersList[currentUserIndex]);
+      _usersList.removeAt(index);
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    Widget mainContent = Center(
+        child: Text(
+      "Please add some users ",
+      style: GoogleFonts.lato(),
+    ));
 
-    Widget mainContent =  Center( child: Text("Please add some users ",style: GoogleFonts.lato(),));
-
-    if(_usersList.isNotEmpty){
-      mainContent =  UsersListView(_usersList, _onUpdateUserScreen, _onRemoveUser);
+    if (_usersList.isNotEmpty) {
+      mainContent =
+          UsersListView(userList: _usersList, onUpdateUserScreen: _onUpdateUserScreen, onRemoveUser: _onRemoveUser);
     }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("State Demo 1",style: GoogleFonts.lato(),),
+        title: Text(
+          "State Demo 1",
+          style: GoogleFonts.lato(),
+        ),
         actions: [
           IconButton(
               onPressed: () {
@@ -76,7 +83,7 @@ class _UsersState extends State<Users> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child:  mainContent,
+        child: mainContent,
       ),
     );
   }
