@@ -1,23 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:state_demo_1/models/User.dart';
-import 'package:state_demo_1/providers/user_provider.dart';
+import 'package:state_demo_1/riverpod/user_riverpod.dart';
 import 'package:state_demo_1/update_user.dart';
 
 class UserItem extends StatelessWidget {
-  const UserItem(this.currentUser, {super.key});
+  const UserItem(this.userIndex, {super.key});
 
-  final User currentUser;
+  final userIndex;
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<UserProvider>(
-      builder: (context, value, child) {
+    return Consumer(
+      builder: (context, ref, child) {
+        final userDetail = ref.watch(userRiverpod);
         return Padding(
             padding: const EdgeInsets.all(4),
             child: GestureDetector(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute( builder: (context) => UpdateUser(currentUser),),);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => UpdateUser(userDetail[userIndex]),
+                  ),
+                );
               },
               child: Card(
                 elevation: 2,
@@ -38,13 +45,16 @@ class UserItem extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                currentUser.userName,
+                                userDetail[userIndex].userName,
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 16),
                               ),
-                              Text("Email : ${currentUser.userEmail}"),
-                              Text("Phone No. :  ${currentUser.userPhoneNo}"),
-                              Text("Address :  ${currentUser.userAddress}"),
+                              Text(
+                                  "Email : ${userDetail[userIndex].userEmail}"),
+                              Text(
+                                  "Phone No. :  ${userDetail[userIndex].userPhoneNo}"),
+                              Text(
+                                  "Address :  ${userDetail[userIndex].userAddress}"),
                             ],
                           ),
                         ),
