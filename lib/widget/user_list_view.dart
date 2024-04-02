@@ -17,7 +17,7 @@ class UsersListView extends ConsumerWidget {
       itemBuilder: (context, index) => Dismissible(
         key: ValueKey(userList[index]),
         onDismissed: (direction) =>
-            ref.read(userRiverpod.notifier).removeUser(index),
+            ref.read(userRiverpod.notifier).removeUser(index,ref),
         background: Container(
           color: Colors.red,
           padding: const EdgeInsets.all(25),

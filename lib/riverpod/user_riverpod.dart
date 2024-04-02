@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:state_demo_1/models/User.dart';
+import 'package:state_demo_1/users.dart';
 
 final userRiverpod =
     StateNotifierProvider<UserProvider, List<User>>((ref) => UserProvider());
@@ -25,11 +26,13 @@ class UserProvider extends StateNotifier<List<User>> {
               userAddress: "Bhusawal"),
         ]);
 
-  void updateUser(User newUser, int index) {
+  void updateUser(User newUser, int index,WidgetRef ref) {
     state[index] = newUser;
+    ref.read(userRiverpod.notifier).state = List.from(state);
   }
 
-  void removeUser(int index) {
+  void removeUser(int index,WidgetRef ref) {
     state.removeAt(index);
+    ref.read(userRiverpod.notifier).state = List.from(state);
   }
 }

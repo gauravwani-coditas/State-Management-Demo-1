@@ -81,7 +81,7 @@ class UpdateUser extends ConsumerWidget {
                         int userIndex = userDetails.indexOf(user);
                         ref
                             .read(userRiverpod.notifier)
-                            .updateUser(newUser, userIndex);
+                            .updateUser(newUser, userIndex,ref);
                         Navigator.pop(context);
                       },
                       child: const Text("Save Response")),
