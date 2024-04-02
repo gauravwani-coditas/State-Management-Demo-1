@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:state_demo_1/new_user.dart';
 import 'package:state_demo_1/riverpod/user_riverpod.dart';
 import 'package:state_demo_1/update_user.dart';
 import 'package:state_demo_1/widget/user_list_view.dart';
@@ -19,19 +20,20 @@ class Users extends ConsumerWidget {
           "State Demo 1",
           style: GoogleFonts.lato(),
         ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const NewUser()),
+                );
+              },
+              icon: const Icon(Icons.add))
+        ],
       ),
       body: Padding(
           padding: const EdgeInsets.all(16),
           child: Center(
-            // child: Consumer<UserProvider>(
-            //   builder: (context, value, child) {
-            //     return value.usersList.isEmpty
-            //         ? const Center(
-            //             child: Text("Please add some data !"),
-            //           )
-            //         : UsersListView(value.getList());
-            //   },
-            // ),
             child: userDetails.isEmpty
                 ? const Center(
                     child: Text("Please add some data !"),

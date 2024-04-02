@@ -35,4 +35,9 @@ class UserProvider extends StateNotifier<List<User>> {
     state.removeAt(index);
     ref.read(userRiverpod.notifier).state = List.from(state);
   }
+
+   void onAddUserData(User newUser,WidgetRef ref) {
+    state.add(newUser);
+    ref.read(userRiverpod.notifier).state = List.from(state);
+  }
 }
