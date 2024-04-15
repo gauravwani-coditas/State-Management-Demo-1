@@ -1,13 +1,13 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:state_demo_1/models/User.dart';
+import 'package:state_demo_1/data/models/User.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:state_demo_1/riverpod/user_riverpod.dart';
+import 'package:state_demo_1/presentation/screens/homePage/bloc/users_bloc.dart';
+import 'package:state_demo_1/presentation/screens/homePage/bloc/users_events.dart';
 
-class NewUser extends ConsumerStatefulWidget{
+class NewUser extends ConsumerStatefulWidget {
   const NewUser({super.key});
-
   @override
   ConsumerState<ConsumerStatefulWidget> createState() {
     return _NewUserState();
@@ -73,7 +73,7 @@ class _NewUserState extends ConsumerState<NewUser> {
     });
   }
 
-  void onSubmitData(BuildContext context,WidgetRef ref) {
+  void onSubmitData(BuildContext context, WidgetRef ref) {
     final enteredName = _textNameController.text;
     final enteredEmail = _textEmailController.text;
     final enteredPhone = _textPhoneController.text;
@@ -115,8 +115,8 @@ class _NewUserState extends ConsumerState<NewUser> {
         userPhoneNo: enteredPhone,
         userAddress: enteredAddress);
 
-    //Provider.of<UserProvider>(context, listen: false).onAddUserData(user);
-    ref.read(userRiverpod.notifier).onAddUserData(user, ref);
+    print("\n\nClicking on Add button \n\n");
+    BlocProvider.of<UserBloc>(context).add(OnSaveResponseClicked(user));
 
     Navigator.pop(context);
   }
@@ -132,81 +132,81 @@ class _NewUserState extends ConsumerState<NewUser> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-        child:  Column(
-            children: [
-              TextField(
-                controller: _textNameController,
-                maxLength: 50,
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  label: Text(
-                    "Name",
-                    style: GoogleFonts.lato(),
-                  ),
+        child: Column(
+          children: [
+            TextField(
+              controller: _textNameController,
+              maxLength: 50,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                label: Text(
+                  "Name",
+                  style: GoogleFonts.lato(),
                 ),
               ),
-              TextField(
-                controller: _textEmailController,
-                maxLength: 30,
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  label: Text(
-                    "Email address",
-                    style: GoogleFonts.lato(),
-                  ),
+            ),
+            TextField(
+              controller: _textEmailController,
+              maxLength: 30,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                label: Text(
+                  "Email address",
+                  style: GoogleFonts.lato(),
                 ),
               ),
-              TextField(
-                controller: _textPhoneController,
-                maxLength: 10,
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  label: Text(
-                    "Phone No. ",
-                    style: GoogleFonts.lato(),
-                  ),
+            ),
+            TextField(
+              controller: _textPhoneController,
+              maxLength: 10,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                label: Text(
+                  "Phone No. ",
+                  style: GoogleFonts.lato(),
                 ),
               ),
-              TextField(
-                controller: _textAddressController,
-                maxLength: 50,
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  label: Text(
-                    "Address",
-                    style: GoogleFonts.lato(),
-                  ),
+            ),
+            TextField(
+              controller: _textAddressController,
+              maxLength: 50,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                label: Text(
+                  "Address",
+                  style: GoogleFonts.lato(),
                 ),
               ),
-              Expanded(
-                child: Row(
-                  children: [
-                    TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text(
-                          "Cancel",
-                          style: GoogleFonts.lato(),
-                        )),
-                    ElevatedButton(
-                        onPressed: _isNameEmpty ||
-                                _isEmailEmpty ||
-                                _isPhoneEmpty ||
-                                _isAddressEmpty
-                            ? null
-                            : () {
-                                onSubmitData(context,ref);
-                              },
-                        child: Text(
-                          "Save Response",
-                          style: GoogleFonts.lato(),
-                        )),
-                  ],
-                ),
-              )
-            ],
-          ),
+            ),
+            Expanded(
+              child: Row(
+                children: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        "Cancel",
+                        style: GoogleFonts.lato(),
+                      )),
+                  ElevatedButton(
+                      onPressed: _isNameEmpty ||
+                              _isEmailEmpty ||
+                              _isPhoneEmpty ||
+                              _isAddressEmpty
+                          ? null
+                          : () {
+                              onSubmitData(context, ref);
+                            },
+                      child: Text(
+                        "Save Response",
+                        style: GoogleFonts.lato(),
+                      )),
+                ],
+              ),
+            )
+          ],
+        ),
         //here consumer
       ),
     );

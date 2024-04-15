@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:state_demo_1/models/User.dart';
-import 'package:state_demo_1/riverpod/user_riverpod.dart';
+import 'package:state_demo_1/data/models/User.dart';
+import 'package:state_demo_1/presentation/screens/homePage/bloc/users_bloc.dart';
+import 'package:state_demo_1/presentation/screens/homePage/bloc/users_events.dart';
 
 class UpdateUser extends ConsumerWidget {
-  UpdateUser(this.user, {super.key});
+  UpdateUser(this.userIndex, this.userList, {super.key});
 
-  User user;
+  final userIndex;
+  final userList;
 
   late TextEditingController _textNameController;
   late TextEditingController _textEmailController;
@@ -15,12 +18,14 @@ class UpdateUser extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userDetails = ref.read(userRiverpod);
-
-    _textNameController = TextEditingController(text: user.userName);
-    _textEmailController = TextEditingController(text: user.userEmail);
-    _textPhoneController = TextEditingController(text: user.userPhoneNo);
-    _textAddressController = TextEditingController(text: user.userAddress);
+    _textNameController =
+        TextEditingController(text: userList[userIndex].userName);
+    _textEmailController =
+        TextEditingController(text: userList[userIndex].userEmail);
+    _textPhoneController =
+        TextEditingController(text: userList[userIndex].userPhoneNo);
+    _textAddressController =
+        TextEditingController(text: userList[userIndex].userAddress);
 
     return Scaffold(
       appBar: AppBar(
@@ -78,10 +83,8 @@ class UpdateUser extends ConsumerWidget {
                             userPhoneNo: _textPhoneController.text,
                             userAddress: _textAddressController.text);
 
-                        int userIndex = userDetails.indexOf(user);
-                        ref
-                            .read(userRiverpod.notifier)
-                            .updateUser(newUser, userIndex,ref);
+                        BlocProvider.of<UserBloc>(context)
+                            .add(OnUserClickedEvent(newUser, userIndex));
                         Navigator.pop(context);
                       },
                       child: const Text("Save Response")),

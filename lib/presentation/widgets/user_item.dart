@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'package:state_demo_1/models/User.dart';
-import 'package:state_demo_1/riverpod/user_riverpod.dart';
-import 'package:state_demo_1/update_user.dart';
+import 'package:state_demo_1/data/models/User.dart';
+import 'package:state_demo_1/presentation/screens/updatePage/update_user.dart';
 
 class UserItem extends StatelessWidget {
-  const UserItem(this.userIndex, {super.key});
+  const UserItem(this.userIndex, this.userList, {super.key});
 
   final userIndex;
+  final userList;
 
   @override
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
-        final userDetail = ref.watch(userRiverpod);
         return Padding(
             padding: const EdgeInsets.all(4),
             child: GestureDetector(
@@ -22,12 +20,13 @@ class UserItem extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => UpdateUser(userDetail[userIndex]),
+                    builder: (context) => UpdateUser(userIndex, userList),
                   ),
                 );
               },
               child: Card(
                 elevation: 2,
+                color: const Color.fromARGB(255, 249, 246, 218),
                 child: Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
@@ -45,16 +44,15 @@ class UserItem extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                userDetail[userIndex].userName,
+                                userList[userIndex].userName,
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 16),
                               ),
+                              Text("Email : ${userList[userIndex].userEmail}"),
                               Text(
-                                  "Email : ${userDetail[userIndex].userEmail}"),
+                                  "Phone No. :  ${userList[userIndex].userPhoneNo}"),
                               Text(
-                                  "Phone No. :  ${userDetail[userIndex].userPhoneNo}"),
-                              Text(
-                                  "Address :  ${userDetail[userIndex].userAddress}"),
+                                  "Address :  ${userList[userIndex].userAddress}"),
                             ],
                           ),
                         ),
