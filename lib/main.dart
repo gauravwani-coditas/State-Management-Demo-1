@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:state_demo_1/presentation/screens/homePage/bloc/users_bloc.dart';
 import 'package:state_demo_1/presentation/screens/homePage/bloc/users_events.dart';
 import 'package:state_demo_1/presentation/screens/homePage/users.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
   runApp(
