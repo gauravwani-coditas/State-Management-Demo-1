@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:state_demo_1/data/models/User.dart';
+import 'package:state_demo_1/data/models/user.dart';
 import 'package:state_demo_1/presentation/screens/updatePage/update_user.dart';
 
 class UserItem extends StatelessWidget {
-  const UserItem(this.userIndex, this.userList, {super.key});
-
-  final userIndex;
-  final userList;
+  const UserItem({
+    required this.user,
+    super.key,
+  });
+  final User user;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,9 @@ class UserItem extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => UpdateUser(userIndex, userList),
+                builder: (context) => UpdateUser(
+                  user: user,
+                ),
               ),
             );
           },
@@ -41,14 +44,13 @@ class UserItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            userList[userIndex].userName,
+                            user.userName,
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 16),
                           ),
-                          Text("Email : ${userList[userIndex].userEmail}"),
-                          Text(
-                              "Phone No. :  ${userList[userIndex].userPhoneNo}"),
-                          Text("Address :  ${userList[userIndex].userAddress}"),
+                          Text("Email : ${user.userEmail}"),
+                          Text("Phone No. :  ${user.userPhoneNo}"),
+                          Text("Address :  ${user.userAddress}"),
                         ],
                       ),
                     ),

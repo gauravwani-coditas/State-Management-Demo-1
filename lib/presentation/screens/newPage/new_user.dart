@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:state_demo_1/data/models/User.dart';
+import 'package:state_demo_1/data/models/user.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:state_demo_1/presentation/screens/homePage/bloc/users_bloc.dart';
 import 'package:state_demo_1/presentation/screens/homePage/bloc/users_events.dart';

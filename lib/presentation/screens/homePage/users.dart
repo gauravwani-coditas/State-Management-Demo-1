@@ -30,18 +30,37 @@ class Users extends StatelessWidget {
       ),
       body: BlocBuilder<UserBloc, UserState>(
         builder: (context, state) {
-          if (state is LoadingState) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (state is LoadedSuccessState) {
-            final userList = state.userList;
-            return UsersListView(userList);
-          } else {
-            return const Center(
-              child: Text("No Content !"),
-            );
+          switch (state.runtimeType) {
+            case LoadingState:
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+              break;
+            case LoadedSuccessState:
+              final currentState = state as LoadedSuccessState;
+              return UsersListView(currentState.userList);
+            case LoadedFailureState:
+              return const Center(
+                child: Text("Error Occured !"),
+              );
+            default:
+              return const Center(
+                child: Text("No Users found !"),
+              );
+              break;
           }
+          // if (state is LoadingState) {
+          // return const Center(
+          //   child: CircularProgressIndicator(),
+          // );
+          // } else if (state is LoadedSuccessState) {
+          // final userList = state.userList;
+          // return UsersListView(userList);
+          // } else {
+          //   return const Center(
+          //     child: Text("No Users found !"),
+          //   );
+          // }
         },
       ),
     );

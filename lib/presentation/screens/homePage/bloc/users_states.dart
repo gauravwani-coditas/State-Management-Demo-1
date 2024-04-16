@@ -1,6 +1,6 @@
-import 'package:state_demo_1/data/models/User.dart';
+import 'package:state_demo_1/data/models/user.dart';
 
-abstract class UserState {}
+sealed class UserState {}
 
 class LoadingState extends UserState {}
 

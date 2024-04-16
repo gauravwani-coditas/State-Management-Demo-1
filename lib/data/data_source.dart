@@ -1,4 +1,4 @@
-import 'package:state_demo_1/data/models/User.dart';
+import 'package:state_demo_1/data/models/user.dart';
 
 List<User> userList = [
   User(

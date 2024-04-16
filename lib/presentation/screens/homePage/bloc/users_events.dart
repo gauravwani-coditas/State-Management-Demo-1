@@ -1,6 +1,6 @@
-import 'package:state_demo_1/data/models/User.dart';
+import 'package:state_demo_1/data/models/user.dart';
 
-abstract class UserEvent {}
+sealed class UserEvent {}
 
 class InitialEvent extends UserEvent {}
 
